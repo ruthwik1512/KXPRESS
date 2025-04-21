@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KXPRESS - India's Reliable Courier Service</title>
+  <meta name="description" content="KXPRESS is a leading courier service in India offering same-day delivery, real-time tracking, and nationwide coverage.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="public/css/style.css">
+  <style>
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Animation Base Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    
+    .fade-in.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Staggered Animation Delays */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    
+    /* Enhanced Hover Effects */
+    .feature-card, .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover, .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Button Animations */
+    .btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .btn:hover::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+    
+    /* Page Load Animation */
+    body {
+      animation: fadeInPage 0.8s ease-in;
+    }
+    
+    @keyframes fadeInPage {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Scroll-to-top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 45px;
+      height: 45px;
+      background-color: #0284c7;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-top:hover {
+      background-color: #0369a1;
+      transform: translateY(-3px);
+    }
+    
+    /* Loading Indicator */
+    .page-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .page-loader.loaded {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #0284c7;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Enhance navigation hover effects */
+    .nav-links a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #0284c7;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Subtle CTA pulse animation */
+    .cta .btn {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(2, 132, 199, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(2, 132, 199, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Add this right after the opening <body> tag -->
+  <div class="page-loader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">K<span>XPRESS</span></a>
+        
+        <div class="nav-links">
+          <a href="index.html" class="active">Home</a>
+          <a href="track.html" class="user-link" style="display: none;">Track</a>
+          <a href="ship.html" class="user-link" style="display: none;">Ship</a>
+          <a href="support.html" class="user-link" style="display: none;">Support</a>
+          <a href="login.html" id="login-btn" class="auth-link">Login</a>
+          <a href="register.html" id="register-btn" class="auth-link">Register</a>
+          <a href="userprofile.html" class="user-link" style="display: none;">
+            <div class="profile-icon">
+              <i class="fas fa-user"></i>
+            </div>
+          </a>
+          <a href="#" id="logout-btn" class="user-link" style="display: none;">Logout</a>
+        </div>
+        
+        <div class="mobile-toggle" id="mobile-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" style="background-image: url('public/images/bgikx.png'); background-size: cover; background-position: center; position: relative; min-height: 650px;">
+    <!-- Add an overlay to ensure text readability -->
+    <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);"></div>
+    
+    <div class="container" style="position: relative; z-index: 2;">
+      <div class="hero-content" style="color: white; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); padding: 80px 0;">
+        <h1 style="font-size: 3.2rem; margin-bottom: 1.5rem;">Fast & Reliable Courier Service Across India</h1>
+        <p style="font-size: 1.3rem; max-width: 650px; margin-bottom: 2rem;">Experience hassle-free package delivery with our nationwide network, real-time tracking, and competitive rates.</p>
+        <div class="hero-buttons" id="hero-buttons">
+          <!-- This will be dynamically updated based on login status -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="section features">
+    <div class="container">
+      <h2 class="section-title">Why Choose KXpress?</h2>
+      
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3>Same Day Delivery</h3>
+          <p>Get your packages delivered within hours in selected cities with our premium service.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h3>Real-Time Tracking</h3>
+          <p>Track your shipments in real-time with our advanced GPS tracking system.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Secure Handling</h3>
+          <p>Your packages are handled with utmost care and security throughout the journey.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-tags"></i>
+          </div>
+          <h3>Competitive Rates</h3>
+          <p>Enjoy cost-effective shipping solutions without compromising on quality or speed.</p>
+        </div>
+        
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3>Nationwide Coverage</h3>
+          <p>Our extensive network ensures we can deliver to any corner of the country.</p>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>24/7 Customer Support</h3>
+          <p>Our dedicated support team is always ready to assist you with any queries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section services">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+          <div class="service-image">
+            <img src="https://images.unsplash.com/photo-1541199249251-f713e6145474?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Express Delivery">
+          </div>
+          <div class="service-content">
+            <h3>Express Delivery</h3>
+            <p>Next-day delivery for urgent packages across major cities in India.</p>
+            <a href="#" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+        
+        <!-- Service 2 -->
+        <div class="service-card">
+          <div class="service-image">
+            <img src="https://images.unsplash.com/photo-1505561756658-3fdd4ea72503?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Standard Shipping">
+          </div>
+          <div class="service-content">
+            <h3>Standard Shipping</h3>
+            <p>Reliable and cost-effective shipping for all your regular needs.</p>
+            <a href="#" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+        
+        <!-- Service 3 -->
+        <div class="service-card">
+          <div class="service-image">
+            <img src="https://images.unsplash.com/photo-1616832880334-b1004d9808da?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="International Shipping">
+          </div>
+          <div class="service-content">
+            <h3>International Shipping</h3>
+            <p>Global shipping solutions with customs handling and tracking.</p>
+            <a href="#" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="section stats">
+    <div class="container">
+      <div class="stats-grid">
+        <!-- Stat 1 -->
+        <div class="stat-item">
+          <div class="stat-number" data-count="500">500+</div>
+          <div class="stat-label">Cities Covered</div>
+        </div>
+        
+        <!-- Stat 2 -->
+        <div class="stat-item">
+          <div class="stat-number" data-count="1000000">1M+</div>
+          <div class="stat-label">Packages Delivered</div>
+        </div>
+        
+        <!-- Stat 3 -->
+        <div class="stat-item">
+          <div class="stat-number" data-count="10000">10K+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        
+        <!-- Stat 4 -->
+        <div class="stat-item">
+          <div class="stat-number" data-count="24">24/7</div>
+          <div class="stat-label">Customer Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Ship Your Package?</h2>
+      <p>Experience the fastest and most reliable courier service in India. Sign up now to get started!</p>
+      <a href="register.html" id="cta-register-btn" class="btn">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- About -->
+        <div class="footer-about">
+          <a href="index.html" class="footer-logo">K<span>XPRESS</span></a>
+          <p>KXPRESS is India's leading courier service provider, offering fast, reliable, and secure delivery solutions across the nation.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="track.html">Track Package</a></li>
+            <li><a href="ship.html">Ship Package</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <ul class="contact-info">
+            <li>
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>123 Main Street, Mumbai, Maharashtra, India - 400001</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>+91 1800 123 4567</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>info@kxpress.in</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div>Mon - Sat: 9:00 AM - 6:00 PM</div>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter to receive updates and special offers.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your Email Address">
+            <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 KXPRESS. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Login/Register Modal -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Account Access</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <button class="tab active" id="login-tab">Login</button>
+          <button class="tab" id="register-tab">Register</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="tab-content active" id="login-content">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+            </div>
+            <div class="form-switch">
+              <label>
+                <input type="checkbox" class="form-check"> Remember me
+              </label>
+              <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Login</button>
+          </form>
+          <div class="form-footer">
+            <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+          </div>
+        </div>
+        
+        <!-- Register Form -->
+        <div class="tab-content" id="register-content">
+          <form id="register-form">
+            <div class="form-group">
+              <label for="register-firstname">First Name</label>
+              <input type="text" id="register-firstname" class="form-control" placeholder="Enter your first name">
+            </div>
+            <div class="form-group">
+              <label for="register-lastname">Last Name</label>
+              <input type="text" id="register-lastname" class="form-control" placeholder="Enter your last name">
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email Address</label>
+              <input type="email" id="register-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" class="form-control" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+              <label for="register-confirm-password">Confirm Password</label>
+              <input type="password" id="register-confirm-password" class="form-control" placeholder="Confirm your password">
+            </div>
+            <div class="form-switch">
+              <label>
+                <input type="checkbox" class="form-check"> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+              </label>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Register</button>
+          </form>
+          <div class="form-footer">
+            <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add this right before the closing </body> tag -->
+  <button class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="public/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Page loader
+      const pageLoader = document.querySelector('.page-loader');
+      if (pageLoader) {
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            pageLoader.classList.add('loaded');
+          }, 500);
+        });
+      }
+      
+      // Fade-in animations on scroll
+      const fadeElements = document.querySelectorAll('.section, .feature-card, .service-card, .stat-item, .cta');
+      
+      // Add fade-in class to elements
+      fadeElements.forEach(function(element, index) {
+        element.classList.add('fade-in');
+        // Add delay classes based on element type
+        if (element.classList.contains('feature-card') || element.classList.contains('service-card') || element.classList.contains('stat-item')) {
+          const delay = index % 4;
+          element.classList.add(`delay-${delay + 1}`);
+        }
+      });
+      
+      // Check if elements are in viewport
+      function checkFade() {
+        fadeElements.forEach(function(element) {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+          
+          if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('appear');
+          }
+        });
+      }
+      
+      // Initial check
+      checkFade();
+      
+      // Check on scroll
+      window.addEventListener('scroll', checkFade);
+      
+      // Scroll-to-top button
+      const scrollTopButton = document.getElementById('scrollTop');
+      
+      function toggleScrollButton() {
+        if (window.pageYOffset > 300) {
+          scrollTopButton.classList.add('visible');
+        } else {
+          scrollTopButton.classList.remove('visible');
+        }
+      }
+      
+      window.addEventListener('scroll', toggleScrollButton);
+      
+      scrollTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          if (this.getAttribute('href') !== '#') {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
+      
+      // Animated counting for stats
+      const statElements = document.querySelectorAll('.stat-number');
+      
+      function animateStats() {
+        statElements.forEach(function(stat) {
+          const target = parseInt(stat.getAttribute('data-count'), 10);
+          let displayed = 0;
+          
+          // Handle special cases like "24/7"
+          if (stat.textContent.includes('/')) {
+            return;
+          }
+          
+          const step = Math.max(1, Math.floor(target / 100));
+          const duration = 2000; // 2 seconds
+          const interval = Math.floor(duration / (target / step));
+          
+          const counter = setInterval(function() {
+            displayed += step;
+            
+            if (displayed >= target) {
+              displayed = target;
+              clearInterval(counter);
+            }
+            
+            // Format with + for large numbers
+            let formattedNumber = displayed;
+            if (target > 1000) {
+              formattedNumber = displayed >= 1000000 ? (displayed / 1000000).toFixed(1) + 'M' : 
+                               displayed >= 1000 ? (displayed / 1000).toFixed(0) + 'K' : displayed;
+            }
+            
+            stat.textContent = formattedNumber + (target > 100 ? '+' : '');
+          }, interval);
+        });
+      }
+      
+      // Trigger stats animation when the stats section is in view
+      const statsSection = document.querySelector('.stats');
+      let statsAnimated = false;
+      
+      function checkStatsInView() {
+        if (statsAnimated) return;
+        
+        const statsSectionTop = statsSection.getBoundingClientRect().top;
+        
+        if (statsSectionTop < window.innerHeight - 100) {
+          animateStats();
+          statsAnimated = true;
+        }
+      }
+      
+      window.addEventListener('scroll', checkStatsInView);
+      
+      // Initial check for stats
+      checkStatsInView();
+    });
+  </script>
+</body>
+</html>

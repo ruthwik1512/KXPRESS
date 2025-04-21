@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - KXPRESS Courier Service</title>
+  <meta name="description" content="Create a new KXPRESS account to start shipping packages across India with our fast and reliable courier service.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">K<span>XPRESS</span></a>
+        
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="track.html" class="user-link" style="display: none;">Track</a>
+          <a href="ship.html" class="user-link" style="display: none;">Ship</a>
+          <a href="support.html" class="user-link" style="display: none;">Support</a>
+          <a href="login.html" id="login-btn" class="auth-link">Login</a>
+          <a href="register.html" id="register-btn" class="auth-link active">Register</a>
+          <a href="userprofile.html" class="user-link" style="display: none;">
+            <div class="profile-icon">
+              <i class="fas fa-user"></i>
+            </div>
+          </a>
+          <a href="#" id="logout-btn" class="user-link" style="display: none;">Logout</a>
+        </div>
+        
+        <div class="mobile-toggle" id="mobile-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Register Section -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="auth-container">
+        <div class="auth-header">
+          <h2>Create an Account</h2>
+          <p>Join KXPRESS for fast and reliable courier services across India</p>
+        </div>
+        
+        <form id="register-page-form" class="auth-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="register-page-firstname">First Name</label>
+              <input type="text" id="register-page-firstname" class="form-control" placeholder="Enter your first name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="register-page-lastname">Last Name</label>
+              <input type="text" id="register-page-lastname" class="form-control" placeholder="Enter your last name" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-page-email">Email Address</label>
+            <input type="email" id="register-page-email" class="form-control" placeholder="Enter your email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-page-phone">Phone Number</label>
+            <input type="tel" id="register-page-phone" class="form-control" placeholder="Enter your phone number" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-page-password">Password</label>
+            <div class="password-input">
+              <input type="password" id="register-page-password" class="form-control" placeholder="Create a password" required>
+              <span class="password-toggle">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+            <div class="password-strength">
+              <div class="strength-meter"></div>
+              <span class="strength-text">Password strength</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-page-confirm-password">Confirm Password</label>
+            <div class="password-input">
+              <input type="password" id="register-page-confirm-password" class="form-control" placeholder="Confirm your password" required>
+              <span class="password-toggle-confirm">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+          </div>
+          
+          <div class="form-switch">
+            <label>
+              <input type="checkbox" id="terms-checkbox" class="form-check" required> 
+              I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </label>
+          </div>
+          
+          <button type="submit" class="btn">Create Account</button>
+          
+          <div class="social-login">
+            <p>Or register with</p>
+            <div class="social-buttons">
+              <button type="button" class="social-btn google">
+                <i class="fab fa-google"></i> Google
+              </button>
+              <button type="button" class="social-btn facebook">
+                <i class="fab fa-facebook-f"></i> Facebook
+              </button>
+            </div>
+          </div>
+        </form>
+        
+        <div class="auth-footer">
+          <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- About -->
+        <div class="footer-about">
+          <a href="index.html" class="footer-logo">K<span>XPRESS</span></a>
+          <p>KXPRESS is India's leading courier service provider, offering fast, reliable, and secure delivery solutions across the nation.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="track.html">Track Package</a></li>
+            <li><a href="ship.html">Ship Package</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <ul class="contact-info">
+            <li>
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>123 Main Street, Mumbai, Maharashtra, India - 400001</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>+91 1800 123 4567</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>info@kxpress.in</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div>Mon - Sat: 9:00 AM - 6:00 PM</div>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter to receive updates and special offers.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your Email Address">
+            <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 KXPRESS. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="public/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Handle password visibility toggle
+      const passwordToggle = document.querySelector('.password-toggle');
+      const passwordInput = document.getElementById('register-page-password');
+      
+      const passwordToggleConfirm = document.querySelector('.password-toggle-confirm');
+      const passwordConfirmInput = document.getElementById('register-page-confirm-password');
+      
+      if (passwordToggle && passwordInput) {
+        passwordToggle.addEventListener('click', () => {
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+          } else {
+            passwordInput.type = 'password';
+            passwordToggle.innerHTML = '<i class="fas fa-eye"></i>';
+          }
+        });
+      }
+      
+      if (passwordToggleConfirm && passwordConfirmInput) {
+        passwordToggleConfirm.addEventListener('click', () => {
+          if (passwordConfirmInput.type === 'password') {
+            passwordConfirmInput.type = 'text';
+            passwordToggleConfirm.innerHTML = '<i class="fas fa-eye-slash"></i>';
+          } else {
+            passwordConfirmInput.type = 'password';
+            passwordToggleConfirm.innerHTML = '<i class="fas fa-eye"></i>';
+          }
+        });
+      }
+      
+      // Password strength meter
+      const strengthMeter = document.querySelector('.strength-meter');
+      const strengthText = document.querySelector('.strength-text');
+      
+      if (passwordInput && strengthMeter && strengthText) {
+        passwordInput.addEventListener('input', () => {
+          const val = passwordInput.value;
+          let strength = 0;
+          
+          if (val.match(/[a-z]+/)) strength += 1;
+          if (val.match(/[A-Z]+/)) strength += 1;
+          if (val.match(/[0-9]+/)) strength += 1;
+          if (val.match(/[^a-zA-Z0-9]+/)) strength += 1;
+          if (val.length >= 8) strength += 1;
+          
+          switch (strength) {
+            case 0:
+              strengthMeter.style.width = '0%';
+              strengthMeter.style.backgroundColor = '#ddd';
+              strengthText.textContent = 'Password strength';
+              break;
+            case 1:
+              strengthMeter.style.width = '20%';
+              strengthMeter.style.backgroundColor = '#dc3545';
+              strengthText.textContent = 'Very Weak';
+              break;
+            case 2:
+              strengthMeter.style.width = '40%';
+              strengthMeter.style.backgroundColor = '#ffc107';
+              strengthText.textContent = 'Weak';
+              break;
+            case 3:
+              strengthMeter.style.width = '60%';
+              strengthMeter.style.backgroundColor = '#ffc107';
+              strengthText.textContent = 'Medium';
+              break;
+            case 4:
+              strengthMeter.style.width = '80%';
+              strengthMeter.style.backgroundColor = '#28a745';
+              strengthText.textContent = 'Strong';
+              break;
+            case 5:
+              strengthMeter.style.width = '100%';
+              strengthMeter.style.backgroundColor = '#28a745';
+              strengthText.textContent = 'Very Strong';
+              break;
+          }
+        });
+      }
+      
+      // Handle form submission
+      const registerForm = document.getElementById('register-page-form');
+      if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const firstName = document.getElementById('register-page-firstname').value;
+          const lastName = document.getElementById('register-page-lastname').value;
+          const email = document.getElementById('register-page-email').value;
+          const phone = document.getElementById('register-page-phone').value;
+          const password = document.getElementById('register-page-password').value;
+          const confirmPassword = document.getElementById('register-page-confirm-password').value;
+          const termsCheckbox = document.getElementById('terms-checkbox');
+          
+          // Simple validation
+          if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
+            alert('Please fill in all fields');
+            return;
+          }
+          
+          if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+          }
+          
+          if (!termsCheckbox.checked) {
+            alert('Please agree to the Terms of Service and Privacy Policy');
+            return;
+          }
+          
+          // Simulate registration - in a real app, this would be an API call
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('userEmail', email);
+          localStorage.setItem('userName', firstName + ' ' + lastName);
+          localStorage.setItem('userPhone', phone);
+          
+          // Redirect to home page
+          window.location.href = 'index.html';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Package - KXPRESS</title>
+  <meta name="description" content="Track your package in real-time with KXPRESS's advanced tracking system.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">K<span>XPRESS</span></a>
+        
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="track.html" class="user-link active" style="display: none;">Track</a>
+          <a href="ship.html" class="user-link" style="display: none;">Ship</a>
+          <a href="support.html" class="user-link" style="display: none;">Support</a>
+          <a href="#" id="login-btn" class="auth-link">Login</a>
+          <a href="#" id="register-btn" class="auth-link">Register</a>
+          <a href="userprofile.html" class="user-link" style="display: none;">
+            <div class="profile-icon">
+              <i class="fas fa-user"></i>
+            </div>
+          </a>
+          <a href="#" id="logout-btn" class="user-link" style="display: none;">Logout</a>
+        </div>
+        
+        <div class="mobile-toggle" id="mobile-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Track Section -->
+  <section class="track-section">
+    <div class="container">
+      <h1 class="section-title">Track Your Package</h1>
+      
+      <div class="track-container">
+        <p class="text-center">Enter your tracking number to get real-time updates on your package's status and location.</p>
+        
+        <form id="track-form" class="track-form">
+          <input type="text" id="tracking-id" class="track-input" placeholder="Enter Tracking Number (e.g., KXP123456789IN)">
+          <button type="submit" class="track-btn">Track</button>
+        </form>
+        
+        <div class="tracking-result">
+          <div class="tracking-header">
+            <div>
+              <h3>Tracking Number: KXP123456789IN</h3>
+              <p>Shipped on: April 10, 2023</p>
+            </div>
+            <span class="tracking-status">In Transit</span>
+          </div>
+          
+          <div class="tracking-info">
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-label">Sender</div>
+                <div class="info-value">Amit Sharma</div>
+                <div class="info-label">Location</div>
+                <div class="info-value">Mumbai, Maharashtra</div>
+              </div>
+              
+              <div class="info-item">
+                <div class="info-label">Recipient</div>
+                <div class="info-value">Priya Patel</div>
+                <div class="info-label">Location</div>
+                <div class="info-value">Bangalore, Karnataka</div>
+              </div>
+              
+              <div class="info-item">
+                <div class="info-label">Service Type</div>
+                <div class="info-value">Express Delivery</div>
+                <div class="info-label">Weight</div>
+                <div class="info-value">2.5 kg</div>
+              </div>
+              
+              <div class="info-item">
+                <div class="info-label">Expected Delivery</div>
+                <div class="info-value">April 13, 2023</div>
+                <div class="info-label">Status</div>
+                <div class="info-value">In Transit</div>
+              </div>
+            </div>
+            
+            <div class="tracking-timeline">
+              <h3 class="timeline-title">Shipment Progress</h3>
+              
+              <div class="timeline">
+                <div class="timeline-item completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-date">April 10, 2023 - 14:30</div>
+                    <div class="timeline-text">Shipment picked up</div>
+                    <div class="timeline-location">Mumbai, Maharashtra</div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-date">April 10, 2023 - 18:45</div>
+                    <div class="timeline-text">Arrived at Mumbai Sorting Facility</div>
+                    <div class="timeline-location">Mumbai, Maharashtra</div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-date">April 11, 2023 - 02:15</div>
+                    <div class="timeline-text">Departed from Mumbai Sorting Facility</div>
+                    <div class="timeline-location">Mumbai, Maharashtra</div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item current">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-date">April 12, 2023 - 09:30</div>
+                    <div class="timeline-text">Arrived at Bangalore Sorting Facility</div>
+                    <div class="timeline-location">Bangalore, Karnataka</div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-date">Expected: April 13, 2023</div>
+                    <div class="timeline-text">Out for Delivery</div>
+                    <div class="timeline-location">Bangalore, Karnataka</div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-date">Expected: April 13, 2023</div>
+                    <div class="timeline-text">Delivered</div>
+                    <div class="timeline-location">Bangalore, Karnataka</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- About -->
+        <div class="footer-about">
+          <a href="index.html" class="footer-logo">K<span>XPRESS</span></a>
+          <p>KXPRESS is India's leading courier service provider, offering fast, reliable, and secure delivery solutions across the nation.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="track.html">Track Package</a></li>
+            <li><a href="ship.html">Ship Package</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <ul class="contact-info">
+            <li>
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>123 Main Street, Mumbai, Maharashtra, India - 400001</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>+91 1800 123 4567</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>info@kxpress.in</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div>Mon - Sat: 9:00 AM - 6:00 PM</div>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter to receive updates and special offers.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your Email Address">
+            <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 KXPRESS. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Login/Register Modal -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Account Access</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <button class="tab active" id="login-tab">Login</button>
+          <button class="tab" id="register-tab">Register</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="tab-content active" id="login-content">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+            </div>
+            <div class="form-switch">
+              <label>
+                <input type="checkbox" class="form-check"> Remember me
+              </label>
+              <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Login</button>
+          </form>
+          <div class="form-footer">
+            <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+          </div>
+        </div>
+        
+        <!-- Register Form -->
+        <div class="tab-content" id="register-content">
+          <form id="register-form">
+            <div class="form-group">
+              <label for="register-firstname">First Name</label>
+              <input type="text" id="register-firstname" class="form-control" placeholder="Enter your first name">
+            </div>
+            <div class="form-group">
+              <label for="register-lastname">Last Name</label>
+              <input type="text" id="register-lastname" class="form-control" placeholder="Enter your last name">
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email Address</label>
+              <input type="email" id="register-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" class="form-control" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+              <label for="register-confirm-password">Confirm Password</label>
+              <input type="password" id="register-confirm-password" class="form-control" placeholder="Confirm your password">
+            </div>
+            <div class="form-switch">
+              <label>
+                <input type="checkbox" class="form-check"> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+              </label>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Register</button>
+          </form>
+          <div class="form-footer">
+            <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="public/js/main.js"></script>
+  <script>
+    // Additional event listeners for the page
+    document.addEventListener('DOMContentLoaded', () => {
+      const switchToRegister = document.getElementById('switch-to-register');
+      const switchToLogin = document.getElementById('switch-to-login');
+      
+      if (switchToRegister) {
+        switchToRegister.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchToRegister();
+        });
+      }
+      
+      if (switchToLogin) {
+        switchToLogin.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchToLogin();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

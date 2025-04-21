@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ship Your Package - KXPRESS</title>
+  <meta name="description" content="Ship your packages with KXPRESS for fast and reliable delivery across India.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="public/css/style.css">
+  <style>
+    /* Custom styles for shipping page */
+    .shipping-steps {
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem 0 3rem;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .shipping-steps::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+    
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #666;
+    }
+    
+    .step.active .step-circle {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+    
+    .step-label {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .step.active .step-label {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .shipping-content {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .shipping-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .address-section {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .address-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    
+    .back-btn {
+      background: #fff;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    /* Package details styles */
+    .package-types {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 2rem;
+    }
+    
+    .package-type {
+      flex: 1;
+      min-width: 150px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .package-type:hover {
+      border-color: #b0b0b0;
+    }
+    
+    .package-type.selected {
+      border-color: var(--primary);
+      background: rgba(229, 57, 53, 0.05);
+    }
+    
+    .package-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+    
+    .selected .package-icon {
+      color: var(--primary);
+    }
+    
+    .package-name {
+      font-weight: 500;
+    }
+    
+    /* Shipping options styles */
+    .shipping-option {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .shipping-option:hover {
+      border-color: #b0b0b0;
+    }
+    
+    .shipping-option.selected {
+      border-color: var(--primary);
+      background: rgba(229, 57, 53, 0.05);
+    }
+    
+    .shipping-option-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .shipping-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .shipping-price {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .shipping-description {
+      margin-top: 5px;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .delivery-time {
+      margin-top: 20px;
+    }
+    
+    .radio-group {
+      margin: 10px 0;
+    }
+    
+    .radio-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    
+    /* Show only the active step content */
+    .shipping-step {
+      display: none;
+    }
+    
+    .shipping-step.active {
+      display: block;
+    }
+    
+    .page-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 28px;
+      color: #333;
+    }
+    
+    .form-check-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    
+    .form-check-input {
+      margin-right: 8px;
+    }
+    
+    /* Date & Time Slot Styles */
+    .time-slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .time-slot {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: #f8fafc;
+    }
+    
+    .time-slot:hover:not(.booked) {
+      border-color: #0284c7;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .time-slot.selected {
+      background-color: #e0f2fe;
+      border-color: #0284c7;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2);
+    }
+    
+    .time-slot.booked {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    .time-slot-time {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: #334155;
+    }
+    
+    .time-slot-status {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    
+    .time-slot.booked .time-slot-status {
+      color: #ef4444;
+    }
+    
+    .time-slot.selected .time-slot-status {
+      color: #0284c7;
+    }
+    
+    .selected-slot-info {
+      margin-top: 12px;
+      font-weight: 500;
+      color: #0284c7;
+      background-color: #e0f2fe;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    
+    /* Dark mode styles */
+    [data-theme="dark"] .time-slot {
+      background-color: #1e293b;
+      border-color: #334155;
+    }
+    
+    [data-theme="dark"] .time-slot-time {
+      color: #e2e8f0;
+    }
+    
+    [data-theme="dark"] .time-slot-status {
+      color: #94a3b8;
+    }
+    
+    [data-theme="dark"] .time-slot.selected {
+      background-color: #0c4a6e;
+      border-color: #0ea5e9;
+    }
+    
+    [data-theme="dark"] .time-slot.booked {
+      background-color: #1e293b;
+      border-color: #475569;
+    }
+    
+    [data-theme="dark"] .selected-slot-info {
+      background-color: #0c4a6e;
+      color: #7dd3fc;
+    }
+    
+    @media (max-width: 768px) {
+      .time-slots-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .time-slots-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Pickup Agent Styles */
+    .pickup-agent-details {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+    
+    .section-description {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+    
+    .agent-card {
+      display: flex;
+      background-color: #f8fafc;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    
+    .agent-photo {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    .agent-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .agent-badge {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background-color: #16a34a;
+      color: white;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .agent-info {
+      padding: 15px;
+      flex-grow: 1;
+    }
+    
+    .agent-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+    
+    .agent-id {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+    
+    .agent-rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 6px;
+    }
+    
+    .stars {
+      color: #f59e0b;
+      font-size: 0.9rem;
+    }
+    
+    .rating-count {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    
+    .agent-details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .agent-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+    
+    .agent-detail i {
+      width: 16px;
+      color: #0284c7;
+    }
+    
+    .agent-verification {
+      margin-top: 20px;
+    }
+    
+    .verification-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background-color: #f0f9ff;
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .verification-notice i {
+      color: #0ea5e9;
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+    
+    .verification-notice p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #0c4a6e;
+    }
+    
+    .contact-options {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    
+    .agent-contact {
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    
+    /* Dark mode support */
+    [data-theme="dark"] .section-title {
+      color: #f1f5f9;
+    }
+    
+    [data-theme="dark"] .section-description {
+      color: #94a3b8;
+    }
+    
+    [data-theme="dark"] .agent-card {
+      background-color: #1e293b;
+    }
+    
+    [data-theme="dark"] .agent-name {
+      color: #f8fafc;
+    }
+    
+    [data-theme="dark"] .agent-detail {
+      color: #cbd5e1;
+    }
+    
+    [data-theme="dark"] .verification-notice {
+      background-color: #0c4a6e;
+    }
+    
+    [data-theme="dark"] .verification-notice p {
+      color: #bae6fd;
+    }
+    
+    @media (max-width: 600px) {
+      .agent-card {
+        flex-direction: column;
+      }
+      
+      .agent-photo {
+        width: 100%;
+        height: 180px;
+      }
+      
+      .contact-options {
+        flex-direction: column;
+      }
+      
+      .agent-contact {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    /* Preferred Delivery Time Styles */
+    .delivery-time-container {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .delivery-time-container h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 1rem;
+    }
+    
+    .delivery-time-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    
+    .delivery-time-options .radio-label {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: #f8fafc;
+      margin-bottom: 0; /* Override previous margin */
+    }
+    
+    .delivery-time-options .radio-label:hover {
+      border-color: #cbd5e1;
+      background-color: #f1f5f9;
+    }
+    
+    /* Hide default radio button */
+    .delivery-time-options input[type="radio"] {
+      opacity: 0;
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+    
+    /* Custom radio button */
+    .radio-custom {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #cbd5e1;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 12px;
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+    
+    /* Inner dot for selected state */
+    .radio-custom::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background-color: #0284c7;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.2s ease;
+    }
+    
+    /* Selected state */
+    .delivery-time-options input[type="radio"]:checked + .radio-custom {
+      border-color: #0284c7;
+    }
+    
+    .delivery-time-options input[type="radio"]:checked + .radio-custom::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .radio-text {
+      font-size: 0.95rem;
+      color: #475569;
+    }
+    
+    .delivery-time-options input[type="radio"]:checked ~ .radio-text {
+      font-weight: 500;
+      color: #1e293b;
+    }
+    
+    /* Dark mode styles */
+    [data-theme="dark"] .delivery-time-container {
+      border-top-color: #334155;
+    }
+    
+    [data-theme="dark"] .delivery-time-container h4 {
+      color: #e2e8f0;
+    }
+    
+    [data-theme="dark"] .delivery-time-options .radio-label {
+      background-color: #1e293b;
+      border-color: #334155;
+    }
+    
+    [data-theme="dark"] .delivery-time-options .radio-label:hover {
+      background-color: #27344a;
+      border-color: #475569;
+    }
+    
+    [data-theme="dark"] .radio-custom {
+      border-color: #475569;
+    }
+    
+    [data-theme="dark"] .radio-custom::after {
+      background-color: #7dd3fc;
+    }
+    
+    [data-theme="dark"] .delivery-time-options input[type="radio"]:checked + .radio-custom {
+      border-color: #7dd3fc;
+    }
+    
+    [data-theme="dark"] .radio-text {
+      color: #cbd5e1;
+    }
+    
+    [data-theme="dark"] .delivery-time-options input[type="radio"]:checked ~ .radio-text {
+      color: #f1f5f9;
+    }
+    
+    @media (max-width: 600px) {
+      .delivery-time-options {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Add this to your style section */
+    .payment-methods-container {
+      margin-bottom: 2rem;
+    }
+    
+    .payment-option {
+      display: block;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .payment-option:hover {
+      border-color: #cbd5e1;
+      background-color: #f8fafc;
+    }
+    
+    .payment-option.selected {
+      border-color: var(--primary);
+      background-color: rgba(229, 57, 53, 0.05);
+    }
+    
+    .payment-option input[type="radio"] {
+      margin-right: 10px;
+    }
+    
+    .payment-option-content {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .payment-option.selected .payment-option-content {
+      display: block;
+    }
+    
+    .payment-cursor {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 18px;
+    }
+    
+    .selected .payment-cursor {
+      color: var(--primary);
+    }
+    
+    /* Dark mode support */
+    [data-theme="dark"] .payment-option {
+      border-color: #334155;
+    }
+    
+    [data-theme="dark"] .payment-option:hover {
+      background-color: #1e293b;
+      border-color: #475569;
+    }
+    
+    [data-theme="dark"] .payment-option.selected {
+      background-color: rgba(229, 57, 53, 0.1);
+      border-color: var(--primary);
+    }
+    
+    [data-theme="dark"] .payment-option-content {
+      border-top-color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">K<span>XPRESS</span></a>
+        
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="track.html" class="user-link" style="display: none;">Track</a>
+          <a href="ship.html" class="user-link active" style="display: none;">Ship</a>
+          <a href="support.html" class="user-link" style="display: none;">Support</a>
+          <a href="#" id="login-btn" class="auth-link">Login</a>
+          <a href="#" id="register-btn" class="auth-link">Register</a>
+          <a href="userprofile.html" class="user-link" style="display: none;">
+            <div class="profile-icon">
+              <i class="fas fa-user"></i>
+            </div>
+          </a>
+          <a href="#" id="logout-btn" class="user-link" style="display: none;">Logout</a>
+        </div>
+        
+        <div class="mobile-toggle" id="mobile-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Ship Section -->
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title">Create a New Shipment</h1>
+      
+      <!-- Shipping Progress Steps -->
+      <div class="shipping-steps">
+        <div class="step active" data-step="1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Addresses</div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Package Details</div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Shipping Options</div>
+        </div>
+        <div class="step" data-step="4">
+          <div class="step-circle">4</div>
+          <div class="step-label">Payment</div>
+        </div>
+        <div class="step" data-step="5">
+          <div class="step-circle">5</div>
+          <div class="step-label">Confirmation</div>
+        </div>
+      </div>
+      
+      <!-- Step 1: Addresses -->
+      <div class="shipping-step active" id="step-1">
+        <div class="shipping-content">
+          <div class="shipping-form">
+            <div class="address-section">
+              <h3 class="address-title">Pickup Address</h3>
+              
+              <div class="form-group">
+                <label for="pickup-name">Full Name</label>
+                <input type="text" id="pickup-name" class="form-control" placeholder="">
+              </div>
+              
+              <div class="form-group">
+                <label for="pickup-phone">Phone Number</label>
+                <input type="tel" id="pickup-phone" class="form-control" placeholder="+91 98765 43210">
+              </div>
+              
+              <div class="form-group">
+                <label for="pickup-address1">Address Line 1</label>
+                <input type="text" id="pickup-address1" class="form-control" placeholder="e.g., 42/7 Rajaji Nagar">
+              </div>
+              
+              <div class="form-group">
+                <label for="pickup-address2">Address Line 2 (Optional)</label>
+                <input type="text" id="pickup-address2" class="form-control" placeholder="e.g., Near Metro Station">
+              </div>
+              
+              <div class="form-group">
+                <label for="pickup-city">City</label>
+                <input type="text" id="pickup-city" class="form-control" placeholder="e.g., Bengaluru">
+              </div>
+              
+              <div class="form-group">
+                <label for="pickup-state">State</label>
+                <select id="pickup-state" class="form-control">
+                  <option value="">Select State</option>
+                  <option value="AP">Andhra Pradesh</option>
+                  <option value="AR">Arunachal Pradesh</option>
+                  <option value="AS">Assam</option>
+                  <option value="BR">Bihar</option>
+                  <option value="CT">Chhattisgarh</option>
+                  <option value="GA">Goa</option>
+                  <option value="GJ">Gujarat</option>
+                  <option value="HR">Haryana</option>
+                  <option value="HP">Himachal Pradesh</option>
+                  <option value="JK">Jammu and Kashmir</option>
+                  <option value="JH">Jharkhand</option>
+                  <option value="KA">Karnataka</option>
+                  <option value="KL">Kerala</option>
+                  <option value="MP">Madhya Pradesh</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="MN">Manipur</option>
+                  <option value="ML">Meghalaya</option>
+                  <option value="MZ">Mizoram</option>
+                  <option value="NL">Nagaland</option>
+                  <option value="OR">Odisha</option>
+                  <option value="PB">Punjab</option>
+                  <option value="RJ">Rajasthan</option>
+                  <option value="SK">Sikkim</option>
+                  <option value="TN">Tamil Nadu</option>
+                  <option value="TG">Telangana</option>
+                  <option value="TR">Tripura</option>
+                  <option value="UT">Uttarakhand</option>
+                  <option value="UP">Uttar Pradesh</option>
+                  <option value="WB">West Bengal</option>
+                  <option value="AN">Andaman and Nicobar Islands</option>
+                  <option value="CH">Chandigarh</option>
+                  <option value="DN">Dadra and Nagar Haveli</option>
+                  <option value="DD">Daman and Diu</option>
+                  <option value="DL">Delhi</option>
+                  <option value="LD">Lakshadweep</option>
+                  <option value="PY">Puducherry</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="pickup-pin">PIN Code</label>
+                <input type="text" id="pickup-pin" class="form-control" placeholder="e.g., 560010">
+              </div>
+            </div>
+            
+            <div class="address-section">
+              <h3 class="address-title">Delivery Address</h3>
+              
+              <div class="form-group">
+                <label for="delivery-name">Full Name</label>
+                <input type="text" id="delivery-name" class="form-control" placeholder="">
+              </div>
+              
+              <div class="form-group">
+                <label for="delivery-phone">Phone Number</label>
+                <input type="tel" id="delivery-phone" class="form-control" placeholder="+91 98765 43210">
+              </div>
+              
+              <div class="form-group">
+                <label for="delivery-address1">Address Line 1</label>
+                <input type="text" id="delivery-address1" class="form-control" placeholder="">
+              </div>
+              
+              <div class="form-group">
+                <label for="delivery-address2">Address Line 2 (Optional)</label>
+                <input type="text" id="delivery-address2" class="form-control" placeholder="">
+              </div>
+              
+              <div class="form-group">
+                <label for="delivery-city">City</label>
+                <input type="text" id="delivery-city" class="form-control" placeholder="">
+              </div>
+              
+              <div class="form-group">
+                <label for="delivery-state">State</label>
+                <select id="delivery-state" class="form-control">
+                  <option value="">Select State</option>
+                  <option value="AP">Andhra Pradesh</option>
+                  <option value="AR">Arunachal Pradesh</option>
+                  <option value="AS">Assam</option>
+                  <option value="BR">Bihar</option>
+                  <option value="CT">Chhattisgarh</option>
+                  <option value="GA">Goa</option>
+                  <option value="GJ">Gujarat</option>
+                  <option value="HR">Haryana</option>
+                  <option value="HP">Himachal Pradesh</option>
+                  <option value="JK">Jammu and Kashmir</option>
+                  <option value="JH">Jharkhand</option>
+                  <option value="KA">Karnataka</option>
+                  <option value="KL">Kerala</option>
+                  <option value="MP">Madhya Pradesh</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="MN">Manipur</option>
+                  <option value="ML">Meghalaya</option>
+                  <option value="MZ">Mizoram</option>
+                  <option value="NL">Nagaland</option>
+                  <option value="OR">Odisha</option>
+                  <option value="PB">Punjab</option>
+                  <option value="RJ">Rajasthan</option>
+                  <option value="SK">Sikkim</option>
+                  <option value="TN">Tamil Nadu</option>
+                  <option value="TG">Telangana</option>
+                  <option value="TR">Tripura</option>
+                  <option value="UT">Uttarakhand</option>
+                  <option value="UP">Uttar Pradesh</option>
+                  <option value="WB">West Bengal</option>
+                  <option value="AN">Andaman and Nicobar Islands</option>
+                  <option value="CH">Chandigarh</option>
+                  <option value="DN">Dadra and Nagar Haveli</option>
+                  <option value="DD">Daman and Diu</option>
+                  <option value="DL">Delhi</option>
+                  <option value="LD">Lakshadweep</option>
+                  <option value="PY">Puducherry</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="delivery-pin">PIN Code</label>
+                <input type="text" id="delivery-pin" class="form-control" placeholder="e.g., 400001">
+              </div>
+            </div>
+          </div>
+          
+          <div class="btn-container">
+            <div></div> <!-- Empty div for flex spacing -->
+            <button class="btn next-step" data-next="2">Continue to Package Details</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 2: Package Details -->
+      <div class="shipping-step" id="step-2">
+        <div class="shipping-content">
+          <h3>Package Information</h3>
+          <p>Select Package Type</p>
+          
+          <div class="package-types">
+            <div class="package-type" data-type="envelope">
+              <div class="package-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="package-name">Envelope</div>
+            </div>
+            
+            <div class="package-type selected" data-type="small-box">
+              <div class="package-icon">
+                <i class="fas fa-box"></i>
+              </div>
+              <div class="package-name">Small Box</div>
+            </div>
+            
+            <div class="package-type" data-type="medium-box">
+              <div class="package-icon">
+                <i class="fas fa-box-open"></i>
+              </div>
+              <div class="package-name">Medium Box</div>
+            </div>
+            
+            <div class="package-type" data-type="large-box">
+              <div class="package-icon">
+                <i class="fas fa-boxes"></i>
+              </div>
+              <div class="package-name">Large Box</div>
+            </div>
+            
+            <div class="package-type" data-type="custom">
+              <div class="package-icon">
+                <i class="fas fa-box-archive"></i>
+              </div>
+              <div class="package-name">Custom Size</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="package-weight">Package Weight</label>
+            <p>Weight (kg)</p>
+            <input type="number" id="package-weight" class="form-control" min="0.1" step="0.1">
+          </div>
+          
+          <div class="form-group">
+            <label for="package-contents">Package Contents</label>
+            <p>Describe the contents of your package</p>
+            <textarea id="package-contents" class="form-control" rows="4"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input"> Fragile Items
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input"> Add Shipping Insurance (₹420)
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label for="pickup-date">Select Pickup Date</label>
+            <input type="date" id="pickup-date" class="form-control" min="" required>
+            <small class="form-text">Select a date for package pickup</small>
+          </div>
+          
+          <!-- Time slot selection section -->
+          <div class="form-group" id="time-slots-container" style="display: none;">
+            <label>Available Pickup Slots</label>
+            <div class="time-slots-grid">
+              <div class="time-slot" data-slot="09:00-10:00">
+                <div class="time-slot-time">9 AM - 10 AM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot" data-slot="10:00-11:00">
+                <div class="time-slot-time">10 AM - 11 AM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot" data-slot="11:00-12:00">
+                <div class="time-slot-time">11 AM - 12 PM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot" data-slot="12:00-13:00">
+                <div class="time-slot-time">12 PM - 1 PM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot" data-slot="13:00-14:00">
+                <div class="time-slot-time">1 PM - 2 PM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot" data-slot="14:00-15:00">
+                <div class="time-slot-time">2 PM - 3 PM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot" data-slot="15:00-16:00">
+                <div class="time-slot-time">3 PM - 4 PM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot booked" data-slot="16:00-17:00">
+                <div class="time-slot-time">4 PM - 5 PM</div>
+                <div class="time-slot-status">Booked</div>
+              </div>
+              <div class="time-slot" data-slot="17:00-18:00">
+                <div class="time-slot-time">5 PM - 6 PM</div>
+                <div class="time-slot-status">Available</div>
+              </div>
+              <div class="time-slot booked" data-slot="18:00-19:00">
+                <div class="time-slot-time">6 PM - 7 PM</div>
+                <div class="time-slot-status">Booked</div>
+              </div>
+            </div>
+            <input type="hidden" id="selected-time-slot" name="selected-time-slot">
+            <div class="selected-slot-info" id="selected-slot-info" style="display: none;">
+              Selected: <span id="selected-slot-text"></span>
+            </div>
+          </div>
+          
+          <div class="btn-container">
+            <button class="btn back-btn prev-step" data-prev="1">Back</button>
+            <button class="btn next-step" data-next="3">Continue to Shipping Options</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 3: Shipping Options -->
+      <div class="shipping-step" id="step-3">
+        <div class="shipping-content">
+          <h3>Select Shipping Service</h3>
+          
+          <div class="shipping-options">
+            <div class="shipping-option selected" data-option="standard">
+              <div class="shipping-option-header">
+                <div class="shipping-name">Standard Delivery</div>
+                <div class="shipping-price">₹1,080</div>
+              </div>
+              <div class="shipping-description">Delivery in 3-5 business days</div>
+            </div>
+            
+            <div class="shipping-option" data-option="express">
+              <div class="shipping-option-header">
+                <div class="shipping-name">Express Delivery</div>
+                <div class="shipping-price">₹2,080</div>
+              </div>
+              <div class="shipping-description">Delivery in 1-2 business days</div>
+            </div>
+            
+            <div class="shipping-option" data-option="same-day">
+              <div class="shipping-option-header">
+                <div class="shipping-name">Same Day Delivery</div>
+                <div class="shipping-price">₹3,330</div>
+              </div>
+              <div class="shipping-description">Delivery within 8 hours (selected areas only)</div>
+            </div>
+          </div>
+          
+          <div class="delivery-time-container">
+            <h4>Preferred Delivery Time</h4>
+            
+            <div class="radio-group delivery-time-options">
+              <label class="radio-label">
+                <input type="radio" name="delivery-time" value="anytime" checked>
+                <span class="radio-custom"></span>
+                <span class="radio-text">Anytime</span>
+              </label>
+              
+              <label class="radio-label">
+                <input type="radio" name="delivery-time" value="morning">
+                <span class="radio-custom"></span>
+                <span class="radio-text">Morning (8AM - 12PM)</span>
+              </label>
+              
+              <label class="radio-label">
+                <input type="radio" name="delivery-time" value="afternoon">
+                <span class="radio-custom"></span>
+                <span class="radio-text">Afternoon (12PM - 5PM)</span>
+              </label>
+              
+              <label class="radio-label">
+                <input type="radio" name="delivery-time" value="evening">
+                <span class="radio-custom"></span>
+                <span class="radio-text">Evening (5PM - 9PM)</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="btn-container">
+            <button class="btn back-btn prev-step" data-prev="2">Back</button>
+            <button class="btn next-step" data-next="4">Continue to Payment</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 4: Payment -->
+      <div class="shipping-step" id="step-4">
+        <div class="shipping-content">
+          <h3>Payment Method</h3>
+          
+          <div class="payment-methods-container">
+            <!-- Credit Card Option -->
+            <label class="payment-option" data-payment="credit-card">
+              <input type="radio" name="payment-method" value="credit-card">
+              Credit Card
+              <span class="payment-cursor"><i class="fas fa-chevron-right"></i></span>
+              
+              <div class="payment-option-content">
+                <div class="form-group">
+                  <label for="card-number">Card Number</label>
+                  <input type="text" id="card-number" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                </div>
+                
+                <div class="form-group">
+                  <label for="card-name">Name on Card</label>
+                  <input type="text" id="card-name" class="form-control" placeholder="JOHN DOE">
+                </div>
+                
+                <div style="display: flex; gap: 15px;">
+                  <div class="form-group" style="flex: 1;">
+                    <label for="card-expiry">Expiry Date</label>
+                    <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY">
+                  </div>
+                  
+                  <div class="form-group" style="flex: 1;">
+                    <label for="card-cvv">CVV</label>
+                    <input type="password" id="card-cvv" class="form-control" placeholder="XXX">
+                  </div>
+                </div>
+              </div>
+            </label>
+            
+            <!-- Debit Card Option -->
+            <label class="payment-option" data-payment="debit-card">
+              <input type="radio" name="payment-method" value="debit-card" checked>
+              Debit Card
+              <span class="payment-cursor"><i class="fas fa-chevron-right"></i></span>
+              
+              <div class="payment-option-content">
+                <div class="form-group">
+                  <label for="debit-card-number">Card Number</label>
+                  <input type="text" id="debit-card-number" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                </div>
+                
+                <div class="form-group">
+                  <label for="debit-card-name">Name on Card</label>
+                  <input type="text" id="debit-card-name" class="form-control" placeholder="JOHN DOE">
+                </div>
+                
+                <div style="display: flex; gap: 15px;">
+                  <div class="form-group" style="flex: 1;">
+                    <label for="debit-card-expiry">Expiry Date</label>
+                    <input type="text" id="debit-card-expiry" class="form-control" placeholder="MM/YY">
+                  </div>
+                  
+                  <div class="form-group" style="flex: 1;">
+                    <label for="debit-card-cvv">CVV</label>
+                    <input type="password" id="debit-card-cvv" class="form-control" placeholder="XXX">
+                  </div>
+                </div>
+              </div>
+            </label>
+            
+            <!-- UPI Option -->
+            <label class="payment-option" data-payment="upi">
+              <input type="radio" name="payment-method" value="upi">
+              UPI
+              <span class="payment-cursor"><i class="fas fa-chevron-right"></i></span>
+              
+              <div class="payment-option-content">
+                <div class="form-group">
+                  <label for="upi-id">UPI ID</label>
+                  <input type="text" id="upi-id" class="form-control" placeholder="yourname@upi">
+                </div>
+                
+                <div class="popular-upi-apps">
+                  <p>Or pay using</p>
+                  <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <div class="upi-app-option">
+                      <img src="https://via.placeholder.com/60x60" alt="Google Pay">
+                      <p>Google Pay</p>
+                    </div>
+                    <div class="upi-app-option">
+                      <img src="https://via.placeholder.com/60x60" alt="PhonePe">
+                      <p>PhonePe</p>
+                    </div>
+                    <div class="upi-app-option">
+                      <img src="https://via.placeholder.com/60x60" alt="Paytm">
+                      <p>Paytm</p>
+                    </div>
+                    <div class="upi-app-option">
+                      <img src="https://via.placeholder.com/60x60" alt="Amazon Pay">
+                      <p>Amazon Pay</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </label>
+            
+            <!-- Net Banking Option -->
+            <label class="payment-option" data-payment="netbanking">
+              <input type="radio" name="payment-method" value="netbanking">
+              Net Banking
+              <span class="payment-cursor"><i class="fas fa-chevron-right"></i></span>
+              
+              <div class="payment-option-content">
+                <div class="popular-banks">
+                  <p>Popular Banks</p>
+                  <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;">
+                    <div class="bank-option">
+                      <img src="https://via.placeholder.com/60x60" alt="HDFC Bank">
+                      <p>HDFC</p>
+                    </div>
+                    <div class="bank-option">
+                      <img src="https://via.placeholder.com/60x60" alt="ICICI Bank">
+                      <p>ICICI</p>
+                    </div>
+                    <div class="bank-option">
+                      <img src="https://via.placeholder.com/60x60" alt="SBI">
+                      <p>SBI</p>
+                    </div>
+                    <div class="bank-option">
+                      <img src="https://via.placeholder.com/60x60" alt="Axis Bank">
+                      <p>Axis</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="other-bank">Other Banks</label>
+                  <select id="other-bank" class="form-control">
+                    <option value="">Select Bank</option>
+                    <option value="kotak">Kotak Mahindra Bank</option>
+                    <option value="yes">Yes Bank</option>
+                    <option value="idfc">IDFC First Bank</option>
+                    <option value="federal">Federal Bank</option>
+                    <option value="indian">Indian Bank</option>
+                  </select>
+                </div>
+              </div>
+            </label>
+            
+            <!-- Cash on Delivery Option -->
+            <label class="payment-option" data-payment="cod">
+              <input type="radio" name="payment-method" value="cod">
+              Cash On Delivery
+              <span class="payment-cursor"><i class="fas fa-chevron-right"></i></span>
+              
+              <div class="payment-option-content">
+                <div class="cod-info">
+                  <div class="cod-icon" style="text-align: center; margin-bottom: 15px;">
+                    <i class="fas fa-money-bill-wave" style="font-size: 48px; color: var(--primary);"></i>
+                  </div>
+                  <h3 style="text-align: center; margin-bottom: 15px;">Cash on Delivery</h3>
+                  <p>Pay with cash when your package arrives at your doorstep. Please keep the exact amount ready to ensure a smooth delivery process.</p>
+                  <p style="color: var(--primary); margin-top: 15px;">Note: COD may not be available for all locations and for high-value shipments.</p>
+                </div>
+              </div>
+            </label>
+          </div>
+          
+          <div class="btn-container">
+            <button class="btn back-btn prev-step" data-prev="3">Back</button>
+            <button class="btn next-step" data-next="5">Continue to Confirmation</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 5: Confirmation -->
+      <div class="shipping-step" id="step-5">
+        <div class="shipping-content">
+          <h3>Shipment Confirmation</h3>
+          
+          <div class="confirmation-details">
+            <p>Your shipment has been booked successfully!</p>
+            <div style="text-align: center; margin: 30px 0;">
+              <i class="fas fa-check-circle" style="font-size: 64px; color: #28a745;"></i>
+              <h2 style="margin-top: 15px; color: #28a745;">Thank You!</h2>
+              <p style="margin-top: 10px;">Your tracking number is: <strong>KX38275649IN</strong></p>
+            </div>
+            
+            <div class="shipment-summary">
+              <h4>Shipment Summary</h4>
+              
+              <div class="summary-section">
+                <h5>Pickup Details</h5>
+                <p>John Doe</p>
+                <p>42/7 Rajaji Nagar, Near Metro Station</p>
+                <p>Bengaluru, Karnataka - 560010</p>
+                <p>Phone: +91 98765 43210</p>
+              </div>
+              
+              <div class="summary-section">
+                <h5>Delivery Details</h5>
+                <p>Jane Smith</p>
+                <p>101, Seawoods Apartment, Sector 15</p>
+                <p>Mumbai, Maharashtra - 400001</p>
+                <p>Phone: +91 98765 43210</p>
+              </div>
+              
+              <div class="summary-section">
+                <h5>Package Details</h5>
+                <p>Package Type: Small Box</p>
+                <p>Weight: 2.5 kg</p>
+                <p>Contents: Books and documents</p>
+                <p>Shipping Service: Standard Delivery (3-5 business days)</p>
+                <p>Preferred Delivery Time: Anytime</p>
+              </div>
+              
+              <div class="summary-section">
+                <h5>Payment Details</h5>
+                <p>Payment Method: <span id="summary-payment-method">Debit Card</span></p>
+                <p>Shipping Charge: ₹1,080</p>
+                <p>Insurance: ₹420</p>
+                <p>Total Amount: ₹1,500</p>
+              </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+              <button class="btn" onclick="window.print()">
+                <i class="fas fa-print"></i> Print Receipt
+              </button>
+              <a href="track.html" class="btn" style="margin-left: 10px;">
+                <i class="fas fa-search"></i> Track Shipment
+              </a>
+            </div>
+          </div>
+          
+          <!-- Add this to the confirmation section of your ship page -->
+          <div class="confirmation-section pickup-agent-details">
+            <h3 class="section-title">Your Pickup Agent Details</h3>
+            <p class="section-description">The following agent will arrive at your address during your selected time slot</p>
+            
+            <div class="agent-card">
+              <div class="agent-photo">
+                <img src="public/images/agent-placeholder.jpg" alt="Pickup Agent" id="agent-photo">
+                <div class="agent-badge">
+                  <i class="fas fa-shield-alt"></i>
+                  <span>Verified</span>
+                </div>
+              </div>
+              
+              <div class="agent-info">
+                <div class="agent-name" id="agent-name">Rajesh Kumar</div>
+                <div class="agent-id">ID: <span id="agent-id">KX42786</span></div>
+                <div class="agent-rating">
+                  <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span id="agent-rating">4.5</span>
+                  <span class="rating-count">(120 pickups)</span>
+                </div>
+                <div class="agent-details">
+                  <div class="agent-detail">
+                    <i class="fas fa-phone"></i>
+                    <span id="agent-phone">+91 98765 43210</span>
+                  </div>
+                  <div class="agent-detail">
+                    <i class="fas fa-clock"></i>
+                    <span id="agent-time">Will arrive in your selected slot</span>
+                  </div>
+                  <div class="agent-detail">
+                    <i class="fas fa-briefcase"></i>
+                    <span id="agent-experience">3+ years experience</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="agent-verification">
+              <div class="verification-notice">
+                <i class="fas fa-info-circle"></i>
+                <p>For your security, our agent will show their KXPRESS ID card. Please verify the ID number matches before handing over your package.</p>
+              </div>
+              
+              <div class="contact-options">
+                <button class="btn-outline agent-contact" data-action="call">
+                  <i class="fas fa-phone"></i> Call Agent
+                </button>
+                <button class="btn-outline agent-contact" data-action="message">
+                  <i class="fas fa-comment"></i> Message
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- About -->
+        <div class="footer-about">
+          <a href="index.html" class="footer-logo">K<span>XPRESS</span></a>
+          <p>KXPRESS is India's leading courier service provider, offering fast, reliable, and secure delivery solutions across the nation.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="track.html">Track Package</a></li>
+            <li><a href="ship.html">Ship Package</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <ul class="contact-info">
+            <li>
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>123 Main Street, Mumbai, Maharashtra, India - 400001</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>+91 1800 123 4567</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>info@kxpress.in</div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div>Mon - Sat: 9:00 AM - 6:00 PM</div>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter to receive updates and special offers.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your Email Address">
+            <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 KXPRESS. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Login/Register Modal -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Account Access</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <button class="tab active" id="login-tab">Login</button>
+          <button class="tab" id="register-tab">Register</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="tab-content active" id="login-content">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+            </div>
+            <div class="form-switch">
+              <label>
+                <input type="checkbox" class="form-check"> Remember me
+              </label>
+              <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Login</button>
+          </form>
+          <div class="form-footer">
+            <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+          </div>
+        </div>
+        
+        <!-- Register Form -->
+        <div class="tab-content" id="register-content">
+          <form id="register-form">
+            <div class="form-group">
+              <label for="register-firstname">First Name</label>
+              <input type="text" id="register-firstname" class="form-control" placeholder="Enter your first name">
+            </div>
+            <div class="form-group">
+              <label for="register-lastname">Last Name</label>
+              <input type="text" id="register-lastname" class="form-control" placeholder="Enter your last name">
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email Address</label>
+              <input type="email" id="register-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" class="form-control" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+              <label for="register-confirm-password">Confirm Password</label>
+              <input type="password" id="register-confirm-password" class="form-control" placeholder="Confirm your password">
+            </div>
+            <div class="form-switch">
+              <label>
+                <input type="checkbox" class="form-check"> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+              </label>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Register</button>
+          </form>
+          <div class="form-footer">
+            <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="public/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navigation between steps
+      const steps = document.querySelectorAll('.shipping-step');
+      const stepIndicators = document.querySelectorAll('.step');
+      
+      // Next step buttons
+      const nextButtons = document.querySelectorAll('.next-step');
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const nextStep = button.getAttribute('data-next');
+          
+          // Hide all steps
+          steps.forEach(step => step.classList.remove('active'));
+          
+          // Show the next step
+          document.getElementById(`step-${nextStep}`).classList.add('active');
+          
+          // Update step indicators
+          stepIndicators.forEach(indicator => {
+            indicator.classList.remove('active');
+            if (indicator.getAttribute('data-step') === nextStep) {
+              indicator.classList.add('active');
+            }
+          });
+          
+          // Scroll to top
+          window.scrollTo(0, 0);
+        });
+      });
+      
+      // Previous step buttons
+      const prevButtons = document.querySelectorAll('.prev-step');
+      prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const prevStep = button.getAttribute('data-prev');
+          
+          // Hide all steps
+          steps.forEach(step => step.classList.remove('active'));
+          
+          // Show the previous step
+          document.getElementById(`step-${prevStep}`).classList.add('active');
+          
+          // Update step indicators
+          stepIndicators.forEach(indicator => {
+            indicator.classList.remove('active');
+            if (indicator.getAttribute('data-step') === prevStep) {
+              indicator.classList.add('active');
+            }
+          });
+          
+          // Scroll to top
+          window.scrollTo(0, 0);
+        });
+      });
+      
+      // Package type selection
+      const packageTypes = document.querySelectorAll('.package-type');
+      packageTypes.forEach(type => {
+        type.addEventListener('click', () => {
+          packageTypes.forEach(t => t.classList.remove('selected'));
+          type.classList.add('selected');
+        });
+      });
+      
+      // Shipping option selection
+      const shippingOptions = document.querySelectorAll('.shipping-option');
+      shippingOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          shippingOptions.forEach(o => o.classList.remove('selected'));
+          option.classList.add('selected');
+        });
+      });
+      
+      // Payment method tabs
+      const paymentTabs = document.querySelectorAll('.payment-tab');
+      const paymentContents = document.querySelectorAll('.payment-tab-content');
+      
+      paymentTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const paymentMethod = tab.getAttribute('data-payment');
+          
+          // Update active tab
+          paymentTabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Hide all payment contents
+          paymentContents.forEach(content => {
+            content.style.display = 'none';
+          });
+          
+          // Show selected payment content
+          document.getElementById(`${paymentMethod}-payment`).style.display = 'block';
+        });
+      });
+      
+      // Initialize payment tabs
+      paymentContents.forEach(content => {
+        if (!content.classList.contains('active')) {
+          content.style.display = 'none';
+        }
+      });
+      
+      // Additional event listeners for the page
+      const switchToRegister = document.getElementById('switch-to-register');
+      const switchToLogin = document.getElementById('switch-to-login');
+      
+      if (switchToRegister) {
+        switchToRegister.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.getElementById('login-content').classList.remove('active');
+          document.getElementById('register-content').classList.add('active');
+          document.getElementById('login-tab').classList.remove('active');
+          document.getElementById('register-tab').classList.add('active');
+        });
+      }
+      
+      if (switchToLogin) {
+        switchToLogin.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.getElementById('register-content').classList.remove('active');
+          document.getElementById('login-content').classList.add('active');
+          document.getElementById('register-tab').classList.remove('active');
+          document.getElementById('login-tab').classList.add('active');
+        });
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Date picker setup
+      const pickupDateInput = document.getElementById('pickup-date');
+      const timeSlotsContainer = document.getElementById('time-slots-container');
+      const timeSlots = document.querySelectorAll('.time-slot:not(.booked)');
+      const selectedTimeSlotInput = document.getElementById('selected-time-slot');
+      const selectedSlotInfo = document.getElementById('selected-slot-info');
+      const selectedSlotText = document.getElementById('selected-slot-text');
+      
+      // Set minimum date to today
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      
+      // Format date as YYYY-MM-DD for min attribute
+      const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+      
+      pickupDateInput.min = formatDate(tomorrow);
+      
+      // When date is selected, show time slots
+      pickupDateInput.addEventListener('change', function() {
+        if (this.value) {
+          // In a real app, you would fetch available slots from server based on date
+          // For demo, we'll show the static slots
+          timeSlotsContainer.style.display = 'block';
+          
+          // Clear any previous selection
+          timeSlots.forEach(slot => {
+            slot.classList.remove('selected');
+          });
+          selectedTimeSlotInput.value = '';
+          selectedSlotInfo.style.display = 'none';
+          
+          // Simulate random availability based on selected date
+          // Only for demo purposes - in real app, this would come from server
+          simulateAvailability();
+        } else {
+          timeSlotsContainer.style.display = 'none';
+        }
+      });
+      
+      // Handle time slot selection
+      timeSlots.forEach(slot => {
+        slot.addEventListener('click', function() {
+          if (!this.classList.contains('booked')) {
+            // Clear previous selection
+            timeSlots.forEach(s => s.classList.remove('selected'));
+            
+            // Select this slot
+            this.classList.add('selected');
+            
+            // Update hidden input
+            const slotValue = this.getAttribute('data-slot');
+            selectedTimeSlotInput.value = slotValue;
+            
+            // Show selected slot info
+            selectedSlotText.textContent = this.querySelector('.time-slot-time').textContent;
+            selectedSlotInfo.style.display = 'inline-block';
+          }
+        });
+      });
+      
+      // For demo: Simulate random availability based on date
+      function simulateAvailability() {
+        const allSlots = document.querySelectorAll('.time-slot');
+        
+        // Reset all slots first
+        allSlots.forEach(slot => {
+          slot.classList.remove('booked');
+          slot.querySelector('.time-slot-status').textContent = 'Available';
+        });
+        
+        // Randomly mark some slots as booked
+        const selectedDate = new Date(pickupDateInput.value);
+        const seed = selectedDate.getDate() + selectedDate.getMonth();
+        
+        // Use the date as a seed for consistent "random" results for the same date
+        for (let i = 0; i < allSlots.length; i++) {
+          // This creates a deterministic pattern based on the date
+          if ((i + seed) % 4 === 0) {  // Every 4th slot, offset by the seed
+            allSlots[i].classList.add('booked');
+            allSlots[i].querySelector('.time-slot-status').textContent = 'Booked';
+          }
+        }
+      }
+    });
+  </script>
+  <script>
+    // This should be part of your ship page's confirmation script
+    document.addEventListener('DOMContentLoaded', function() {
+      // In a real app, this would be fetched from the server
+      // after booking confirmation
+      
+      // For demo purposes, we'll simulate different agents
+      // based on the selected delivery area or time
+      function assignRandomAgent() {
+        const agents = [
+          {
+            name: "Rajesh Kumar",
+            id: "KX42786",
+            photo: "public/images/agent-placeholder.jpg", // Replace with actual photos
+            phone: "+91 98765 43210",
+            rating: 4.5,
+            pickups: 120,
+            experience: "3+ years experience"
+          },
+          {
+            name: "Amrita Singh",
+            id: "KX38429",
+            photo: "public/images/agent-placeholder.jpg",
+            phone: "+91 87654 32109",
+            rating: 4.8,
+            pickups: 243,
+            experience: "4+ years experience"
+          },
+          {
+            name: "Vivek Sharma",
+            id: "KX41052",
+            photo: "public/images/agent-placeholder.jpg",
+            phone: "+91 76543 21098",
+            rating: 4.3,
+            pickups: 98,
+            experience: "2+ years experience"
+          }
+        ];
+        
+        // Select a random agent
+        const randomIndex = Math.floor(Math.random() * agents.length);
+        const selectedAgent = agents[randomIndex];
+        
+        // Update the UI with agent details
+        document.getElementById('agent-name').textContent = selectedAgent.name;
+        document.getElementById('agent-id').textContent = selectedAgent.id;
+        document.getElementById('agent-phone').textContent = selectedAgent.phone;
+        document.getElementById('agent-rating').textContent = selectedAgent.rating;
+        document.querySelector('.rating-count').textContent = `(${selectedAgent.pickups} pickups)`;
+        document.getElementById('agent-experience').textContent = selectedAgent.experience;
+        document.getElementById('agent-photo').src = selectedAgent.photo;
+        
+        // Update selected time slot
+        const selectedSlot = document.getElementById('selected-time-slot');
+        if (selectedSlot && selectedSlot.value) {
+          const slotText = selectedSlot.value.replace('-', ' to ').replace(':', ':');
+          document.getElementById('agent-time').textContent = `Will arrive between ${slotText}`;
+        }
+      }
+      
+      // Call this function when confirmation is shown
+      // For demo, we'll call it immediately
+      assignRandomAgent();
+      
+      // Add functionality to the call/message buttons
+      const contactButtons = document.querySelectorAll('.agent-contact');
+      contactButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const action = this.getAttribute('data-action');
+          const phone = document.getElementById('agent-phone').textContent;
+          
+          if (action === 'call') {
+            // In a real app, this would open the phone app
+            alert(`Calling ${phone}`);
+          } else if (action === 'message') {
+            // In a real app, this would open a messaging interface
+            alert(`Opening message to ${phone}`);
+          }
+        });
+      });
+    });
+  </script>
+  <script>
+    // Payment method selection
+    document.addEventListener('DOMContentLoaded', function() {
+      // Payment method selection
+      const paymentOptions = document.querySelectorAll('.payment-option');
+      const paymentMethodRadios = document.querySelectorAll('input[name="payment-method"]');
+      
+      // Variable to store selected payment method for confirmation page
+      let selectedPaymentMethod = 'debit-card';
+      let selectedPaymentMethodText = 'Debit Card';
+      
+      // Set initial selection based on checked radio
+      initializePaymentSelection();
+      
+      function initializePaymentSelection() {
+        // Find the checked radio button
+        const checkedRadio = document.querySelector('input[name="payment-method"]:checked');
+        if (checkedRadio) {
+          const paymentOption = checkedRadio.closest('.payment-option');
+          selectPaymentOption(paymentOption);
+        }
+      }
+      
+      // For each payment option
+      paymentOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          selectPaymentOption(this);
+          
+          // Also check the radio button
+          const radio = this.querySelector('input[type="radio"]');
+          if (radio) {
+            radio.checked = true;
+            
+            // Store selected payment method
+            selectedPaymentMethod = radio.value;
+            selectedPaymentMethodText = this.textContent.trim().split('\n')[0].trim();
+          }
+        });
+      });
+      
+      // For direct radio button clicks
+      paymentMethodRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.checked) {
+            const paymentOption = this.closest('.payment-option');
+            selectPaymentOption(paymentOption);
+            
+            // Store selected payment method
+            selectedPaymentMethod = this.value;
+            selectedPaymentMethodText = paymentOption.textContent.trim().split('\n')[0].trim();
+          }
+        });
+      });
+      
+      function selectPaymentOption(option) {
+        // Remove selected class from all options
+        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // Add selected class to this option
+        option.classList.add('selected');
+      }
+      
+      // Update confirmation summary with selected payment method
+      function updateConfirmationSummary() {
+        const paymentMethodElement = document.querySelector('#summary-payment-method');
+        if (paymentMethodElement) {
+          paymentMethodElement.textContent = selectedPaymentMethodText;
+        }
+      }
+      
+      // When proceeding to confirmation, update the payment method
+      const confirmationButton = document.querySelector('.next-step[data-next="5"]');
+      if (confirmationButton) {
+        confirmationButton.addEventListener('click', function() {
+          updateConfirmationSummary();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
